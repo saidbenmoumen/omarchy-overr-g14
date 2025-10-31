@@ -4,10 +4,12 @@
 # But not these directories
 !nvim/
 !hypr/
+!scripts/
 
 # And not their contents
 !nvim/**
 !hypr/**
+!scripts/**
 
 # Don't ignore .gitignore itself
 !.gitignore
