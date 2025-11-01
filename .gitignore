@@ -3,13 +3,16 @@
 
 # But not these directories
 !nvim/
-!hypr/
-!scripts/
-
-# And not their contents
 !nvim/**
+
+!hypr/
 !hypr/**
+
+!scripts/
 !scripts/**
+
+!monitor-auto-switch/
+!monitor-auto-switch/**
 
 # Don't ignore .gitignore itself
 !.gitignore
