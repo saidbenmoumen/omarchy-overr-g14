@@ -14,5 +14,10 @@
 !monitor-auto-switch/
 !monitor-auto-switch/**
 
+!alacritty/
+!alacritty/**
+
+!README.md
+
 # Don't ignore .gitignore itself
 !.gitignore
