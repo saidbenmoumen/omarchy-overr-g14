@@ -17,6 +17,9 @@
 !alacritty/
 !alacritty/**
 
+!uwsm/
+!uwsm/**
+
 !README.md
 
 # Don't ignore .gitignore itself
