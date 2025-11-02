@@ -1,3 +1,5 @@
+a modified omarchy .conf to match my preferences :)
+
 # DGPU (NVIDIA)
 
 #### Laptop / Hybrid GPU Power Management Issues NVIDIA, iGPU + dGPU

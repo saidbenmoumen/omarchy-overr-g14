@@ -23,6 +23,9 @@
 !alactritty/
 !alacritty/**
 
+!omarchy/
+!omarchy/**
+
 !README.md
 
 # Don't ignore .gitignore itself
