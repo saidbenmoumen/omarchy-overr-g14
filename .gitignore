@@ -24,7 +24,8 @@
 !alacritty/**
 
 !omarchy/
-!omarchy/**
+!omarchy/themes/black
+!omarchy/branding
 
 !README.md
 
