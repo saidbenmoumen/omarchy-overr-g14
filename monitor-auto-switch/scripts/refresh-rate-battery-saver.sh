@@ -1,5 +1,4 @@
 #!/bin/bash
-# Save as ~/.config/monitor/refresh-rate-battery.sh
 
 # Configuration
 MONITOR="eDP-1"

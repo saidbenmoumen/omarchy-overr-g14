@@ -5,7 +5,5 @@ After=graphical-session.target
 [Service]
 Type=oneshot
 ExecStart=%h/.local/share/omarchy/bin/omarchy-battery-monitor
-ExecStart=%h/.config/monitor-auto-switch/scripts/refresh-rate-battery-saver.sh
 Environment=DISPLAY=:0
-Environment=HYPRLAND_INSTANCE_SIGNATURE=%E
 LogLevelMax=warning
