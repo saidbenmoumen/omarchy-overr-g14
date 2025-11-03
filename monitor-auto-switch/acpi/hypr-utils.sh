@@ -10,8 +10,8 @@ log() {
 
 # ========== CONFIGURATION SECTION ==========
 # Customize these values based on your hardware
-LAPTOP_MONITOR="eDP-2"                    # Your laptop display name
-EXTERNAL_MONITOR="DP-2"                   # Your external display name
+LAPTOP_MONITOR="eDP-1"                    # Your laptop display name
+EXTERNAL_MONITOR="DP-5"                   # Your external display name
 EXTERNAL_RESOLUTION="5120x2160@60"        # External monitor resolution@refresh
 LAPTOP_RESOLUTION="2880x1800@120"          # Laptop monitor resolution@refresh
 EXTERNAL_SCALE="1.67"                     # External monitor scaling factor

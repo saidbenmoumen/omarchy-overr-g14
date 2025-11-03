@@ -27,6 +27,10 @@
 !omarchy/themes/black
 !omarchy/branding
 
+
+!mpv/
+!mpv/**
+
 !README.md
 
 # Don't ignore .gitignore itself
