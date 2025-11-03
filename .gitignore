@@ -31,6 +31,9 @@
 !mpv/
 !mpv/**
 
+!systemd/
+!systemd/**
+
 !README.md
 
 # Don't ignore .gitignore itself
