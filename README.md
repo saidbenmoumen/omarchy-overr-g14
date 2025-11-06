@@ -1,3 +1,11 @@
+TODO
+
+- on battery
+- [ ] switch to 60hz unless in performance mode refresh.sh
+- [ ] disable panel overdrive asusctl? `asusctl armoury panel_overdrive 0|1`
+- on power
+- [ ] auto suspend disale if on power or make it very long
+
 a modified omarchy .conf to match my preferences :)
 
 # DGPU (NVIDIA)
