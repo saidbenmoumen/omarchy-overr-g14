@@ -30,7 +30,7 @@ Options:
   -h, --help               Show this help and exit
 
 Expected files in --src:
-  hypr-utils.sh, lid-open.sh, lid-close.sh, check-lid-on-startup.sh
+  hypr-utils.sh, lid-open.sh, lid-close.sh, check-lid-on-startup.sh, ac-adapter-handler-simple.sh
 
 Examples:
   sudo $(basename "$0")
@@ -119,12 +119,17 @@ install_from_repo() {
 
   backup_if_changed "$REPO_ACPI_DIR/check-lid-on-startup.sh" "$DEST_DIR/check-lid-on-startup.sh"
   install_file      "$REPO_ACPI_DIR/check-lid-on-startup.sh" "$DEST_DIR/check-lid-on-startup.sh" 0755
+
+  # Install refresh rate handler for AC adapter events
+  backup_if_changed "$REPO_ACPI_DIR/ac-adapter-handler-simple.sh" "$DEST_DIR/ac-adapter-handler-simple.sh"
+  install_file      "$REPO_ACPI_DIR/ac-adapter-handler-simple.sh" "$DEST_DIR/ac-adapter-handler-simple.sh" 0755
 }
 
 update_events() {
   if [ "$DRY_RUN" = 1 ]; then
     say "Would write $EVENTS_DIR/lid-close with regex event"
     say "Would write $EVENTS_DIR/lid-open with regex event"
+    say "Would write $EVENTS_DIR/ac-adapter with AC power event"
   else
     install -m 0644 -o root -g root /dev/stdin "$EVENTS_DIR/lid-close" <<'EOF'
 event=button/lid.*close
@@ -133,6 +138,14 @@ EOF
     install -m 0644 -o root -g root /dev/stdin "$EVENTS_DIR/lid-open" <<'EOF'
 event=button/lid.*open
 action=/etc/acpi/lid-open.sh
+EOF
+    install -m 0644 -o root -g root /dev/stdin "$EVENTS_DIR/ac-adapter" <<'EOF'
+# ACPI event configuration for AC adapter plug/unplug events
+# This triggers the refresh rate switching when AC power changes
+# Pattern matches: ac_adapter ACPI0003:00 00000080 00000000 (unplug)
+#                  ac_adapter ACPI0003:00 00000080 00000001 (plug)
+event=ac_adapter ACPI0003:00 00000080 .*
+action=/etc/acpi/ac-adapter-handler-simple.sh "%e"
 EOF
   fi
 }
@@ -216,27 +229,36 @@ EOF"
 invoke_startup_check() {
   if [ "$DRY_RUN" = 1 ]; then
     say "Would run ${DEST_DIR}/check-lid-on-startup.sh to synchronise layout immediately"
+    say "Would run ${DEST_DIR}/ac-adapter-handler-simple.sh to set correct refresh rate"
     return
   fi
 
   if ! command -v pgrep >/dev/null 2>&1; then
-    say "pgrep not available; skipping immediate startup lid check"
+    say "pgrep not available; skipping immediate startup checks"
     return
   fi
 
   if pgrep -x Hyprland >/dev/null 2>&1; then
-    say "Hyprland detected; running ${DEST_DIR}/check-lid-on-startup.sh for immediate layout sync"
+    say "Hyprland detected; running startup synchronization"
+
+    # Run lid startup check for monitor layout
     if ! "${DEST_DIR}/check-lid-on-startup.sh"; then
       echo "Warning: ${DEST_DIR}/check-lid-on-startup.sh exited with a non-zero status." >&2
     fi
+
+    # Run AC adapter handler to set correct refresh rate based on current power state
+    say "Setting correct refresh rate based on current power state"
+    if ! "${DEST_DIR}/ac-adapter-handler-simple.sh"; then
+      echo "Warning: ${DEST_DIR}/ac-adapter-handler-simple.sh exited with a non-zero status." >&2
+    fi
   else
-    say "Hyprland not running; skipping immediate startup lid check"
+    say "Hyprland not running; skipping immediate startup checks"
   fi
 }
 
 validate_src() {
   local missing=0
-  for f in hypr-utils.sh lid-open.sh lid-close.sh check-lid-on-startup.sh; do
+  for f in hypr-utils.sh lid-open.sh lid-close.sh check-lid-on-startup.sh ac-adapter-handler-simple.sh; do
     if [ ! -f "$REPO_ACPI_DIR/$f" ]; then
       echo "Missing: $REPO_ACPI_DIR/$f" >&2
       missing=1
@@ -266,6 +288,7 @@ main() {
   say "Install complete. You can test with:"
   say "  sudo ${DEST_DIR}/lid-close.sh"
   say "  sudo ${DEST_DIR}/lid-open.sh"
+  say "  sudo ${DEST_DIR}/ac-adapter-handler-simple.sh  # Auto-adjust refresh rate"
 }
 
 main "$@"

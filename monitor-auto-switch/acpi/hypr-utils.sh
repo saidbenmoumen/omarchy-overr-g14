@@ -13,7 +13,6 @@ log() {
 LAPTOP_MONITOR="eDP-1"                    # Your laptop display name
 EXTERNAL_MONITOR="DP-5"                   # Your external display name
 EXTERNAL_RESOLUTION="5120x2160@60"        # External monitor resolution@refresh
-LAPTOP_RESOLUTION="2880x1800@120"          # Laptop monitor resolution@refresh
 EXTERNAL_SCALE="1.67"                     # External monitor scaling factor
 LAPTOP_SCALE="2"                           # Laptop monitor scaling factor
 EXTERNAL_POSITION="0x0"                   # External monitor position
@@ -22,6 +21,10 @@ LAPTOP_POSITION_SOLO="0x0"               # Laptop position when alone
 # Workspace distribution
 EXTERNAL_WS="${EXTERNAL_WS:-1 2 3 4 5}"  # Workspaces for external monitor
 LAPTOP_WS="${LAPTOP_WS:-6 7 8 9 10}"     # Workspaces for laptop monitor
+# Refresh rate settings for power management
+LAPTOP_LOW_REFRESH="60"                   # Battery saving refresh rate
+LAPTOP_HIGH_REFRESH="120"                 # AC power refresh rate
+LAPTOP_BASE_RESOLUTION="2880x1800"       # Base resolution without refresh rate
 # ========== END CONFIGURATION SECTION ==========
 
 # Debounce: single instance at a time
@@ -225,14 +228,36 @@ set_dual_layout() {
   # External and laptop both enabled, positions/scales from config
   hypr keyword monitor "${EXTERNAL_MONITOR},${EXTERNAL_RESOLUTION},${EXTERNAL_POSITION},${EXTERNAL_SCALE}"
   sleep 0.25
-  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_RESOLUTION},${LAPTOP_POSITION_DUAL},${LAPTOP_SCALE}"
+
+  # Set laptop monitor with appropriate refresh rate based on power state
+  local laptop_refresh="${LAPTOP_HIGH_REFRESH}"
+  if ac_adapter_plugged; then
+    laptop_refresh="${LAPTOP_HIGH_REFRESH}"
+    log "AC power detected, using high refresh rate for laptop in dual layout"
+  else
+    laptop_refresh="${LAPTOP_LOW_REFRESH}"
+    log "Battery power detected, using low refresh rate for laptop in dual layout"
+  fi
+
+  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_BASE_RESOLUTION}@${laptop_refresh},${LAPTOP_POSITION_DUAL},${LAPTOP_SCALE}"
   sleep 0.25
 }
 
 set_laptop_only() {
   hypr keyword monitor "${EXTERNAL_MONITOR},disable"
   sleep 0.25
-  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_RESOLUTION},${LAPTOP_POSITION_SOLO},${LAPTOP_SCALE}"
+
+  # Set laptop monitor with appropriate refresh rate based on power state
+  local laptop_refresh="${LAPTOP_HIGH_REFRESH}"
+  if ac_adapter_plugged; then
+    laptop_refresh="${LAPTOP_HIGH_REFRESH}"
+    log "AC power detected, using high refresh rate for laptop-only mode"
+  else
+    laptop_refresh="${LAPTOP_LOW_REFRESH}"
+    log "Battery power detected, using low refresh rate for laptop-only mode"
+  fi
+
+  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_BASE_RESOLUTION}@${laptop_refresh},${LAPTOP_POSITION_SOLO},${LAPTOP_SCALE}"
   sleep 0.25
 }
 
@@ -248,3 +273,99 @@ notify() {
     run_as_hypr notify-send "$@"
   fi
 }
+
+# ========== AC ADAPTER DETECTION FUNCTIONS ==========
+
+# Check if AC adapter is plugged in
+# Returns: 0 if plugged in, 1 if unplugged, 2 if unable to determine
+ac_adapter_plugged() {
+  local ac_online_file="/sys/class/power_supply/ACAD/online"
+
+  # Check if the AC adapter online file exists and is readable
+  if [ ! -r "$ac_online_file" ]; then
+    # Try alternative AC adapter names
+    for ac_path in /sys/class/power_supply/A{C,D}A{D,C}*/online /sys/class/power_supply/ADP*/online; do
+      if [ -r "$ac_path" ]; then
+        ac_online_file="$ac_path"
+        break
+      fi
+    done
+
+    # If still not found, return error
+    if [ ! -r "$ac_online_file" ]; then
+      log "AC adapter status file not found or not readable"
+      return 2
+    fi
+  fi
+
+  # Read the online status (1 = plugged in, 0 = unplugged)
+  local status
+  status=$(cat "$ac_online_file" 2>/dev/null)
+
+  case "$status" in
+    1) return 0 ;;  # Plugged in
+    0) return 1 ;;  # Unplugged
+    *)
+      log "Unexpected AC adapter status: $status"
+      return 2
+      ;;
+  esac
+}
+
+# Get human-readable AC adapter status
+get_ac_adapter_status() {
+  if ac_adapter_plugged; then
+    echo "plugged"
+  elif [ $? -eq 1 ]; then
+    echo "unplugged"
+  else
+    echo "unknown"
+  fi
+}
+
+# Check if running on battery power
+on_battery() {
+  ! ac_adapter_plugged
+}
+
+# ========== REFRESH RATE MANAGEMENT ==========
+
+# Switch laptop monitor refresh rate based on power state
+switch_laptop_refresh() {
+  local refresh="$1"
+  local resolution="${LAPTOP_BASE_RESOLUTION}"
+  local position="${LAPTOP_POSITION_SOLO}"
+  local scale="${LAPTOP_SCALE}"
+
+  # Determine position based on current monitor setup
+  if external_connected; then
+    position="${LAPTOP_POSITION_DUAL}"
+  fi
+
+  log "Switching laptop monitor to ${refresh}Hz"
+  hypr keyword monitor "${LAPTOP_MONITOR},${resolution}@${refresh},${position},${scale}" >/dev/null 2>&1
+  notify "Display" "Switched to ${refresh}Hz" -u low
+  log "✅ Laptop monitor switched to ${refresh}Hz"
+}
+
+# Set high refresh rate (AC power mode)
+set_high_refresh() {
+  switch_laptop_refresh "${LAPTOP_HIGH_REFRESH}"
+}
+
+# Set low refresh rate (battery mode)
+set_low_refresh() {
+  switch_laptop_refresh "${LAPTOP_LOW_REFRESH}"
+}
+
+# Auto-adjust refresh rate based on AC adapter status
+auto_adjust_refresh() {
+  if ac_adapter_plugged; then
+    log "AC adapter detected, setting high refresh rate"
+    set_high_refresh
+  else
+    log "Battery power detected, setting low refresh rate for power saving"
+    set_low_refresh
+  fi
+}
+
