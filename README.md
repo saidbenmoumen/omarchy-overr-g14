@@ -7,7 +7,6 @@ a modified omarchy .conf to match my preferences :)
 <https://github.com/basecamp/omarchy/issues/1776>
 
 1. use supergfxctl instead of envycontrol
-
 2. add S0ix power management to the kernel `/etc/modprobe.d/nvidia-power-management.conf`
 
 ```
@@ -50,7 +49,7 @@ Current=breeze
 
 # TODO
 
-- on battery
-- [ ] disable panel overdrive asusctl? `asusctl armoury panel_overdrive 0|1`
-- on power
-- [ ] auto suspend disable if on power or make it very long
+- battery: enable/disable panel overdrive asusctl? `asusctl armoury panel_overdrive 0|1`
+- plugged: auto suspend disable if on power or make it very long
+- monitor auto switch script support multiple monitors (skip eDP & enable all DP, disable all DP & enable eDP...)
+- monitors auto switch use dynamic auto hyprland detection instead of custom values
