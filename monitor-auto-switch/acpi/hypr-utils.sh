@@ -11,20 +11,20 @@ log() {
 # ========== CONFIGURATION SECTION ==========
 # Customize these values based on your hardware
 LAPTOP_MONITOR="eDP-1"                    # Your laptop display name
-EXTERNAL_MONITOR="DP-5"                   # Your external display name
-EXTERNAL_RESOLUTION="5120x2160@60"        # External monitor resolution@refresh
-EXTERNAL_SCALE="1.67"                     # External monitor scaling factor
-LAPTOP_SCALE="2"                           # Laptop monitor scaling factor
-EXTERNAL_POSITION="0x0"                   # External monitor position
-LAPTOP_POSITION_DUAL="3072x0"            # Laptop position in dual mode
-LAPTOP_POSITION_SOLO="0x0"               # Laptop position when alone
+EXTERNAL_MONITOR="DP-11"                   # Your external display name
+EXTERNAL_RESOLUTION="preferred"        # External monitor resolution@refresh
+EXTERNAL_SCALE="auto"                     # External monitor scaling factor
+LAPTOP_SCALE="auto"                           # Laptop monitor scaling factor
+EXTERNAL_POSITION="auto"                   # External monitor position
+LAPTOP_POSITION_DUAL="auto-left"            # Laptop position in dual mode
+LAPTOP_POSITION_SOLO="auto"               # Laptop position when alone
 # Workspace distribution
 EXTERNAL_WS="${EXTERNAL_WS:-1 2 3 4 5}"  # Workspaces for external monitor
 LAPTOP_WS="${LAPTOP_WS:-6 7 8 9 10}"     # Workspaces for laptop monitor
 # Refresh rate settings for power management
 LAPTOP_LOW_REFRESH="60"                   # Battery saving refresh rate
 LAPTOP_HIGH_REFRESH="120"                 # AC power refresh rate
-LAPTOP_BASE_RESOLUTION="2880x1800"       # Base resolution without refresh rate
+LAPTOP_BASE_RESOLUTION="preferred"       # Base resolution without refresh rate
 # ========== END CONFIGURATION SECTION ==========
 
 # Debounce: single instance at a time
