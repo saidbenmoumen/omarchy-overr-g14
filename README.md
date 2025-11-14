@@ -49,7 +49,12 @@ Current=breeze
 
 # TODO
 
-- battery: enable/disable panel overdrive asusctl? `asusctl armoury panel_overdrive 0|1`
-- plugged: auto suspend disable if on power or make it very long
-- monitor auto switch script support multiple monitors (skip eDP & enable all DP, disable all DP & enable eDP...)
-- monitors auto switch use dynamic auto hyprland detection instead of custom values
+- look into power_dp if power battery passthrough is good in usb-c or power_brick, ...
+- look into vrr if scales down to 1hz or smtg? better battery?
+- battery: enable/disable panel overdrive asusctl? `asusctl armoury panel_overdrive 0|1` ???
+- if plugged make auto suspend (hyprlock?) disabled or make it very long not quick
+- auto refresh rate its own script in acpi external from acpi monitor switch
+- dp_dual: shortcut (show all monitors) [dp_reset] + [,preferred,auto,auto]
+- dp_external: shortcut [dp_reset] + [hyprctl keyword eDP*,disable]
+- dp_laptop: shortcut [dp_reset] + hyprctl keywoard DP\*,disable
+- dp_reset: shortcut [dp_reset]

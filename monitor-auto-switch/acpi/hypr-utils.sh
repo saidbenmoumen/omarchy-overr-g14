@@ -10,12 +10,9 @@ log() {
 
 # ========== CONFIGURATION SECTION ==========
 # Customize these values based on your hardware
-LAPTOP_MONITOR="eDP-1"                    # Your laptop display name
-EXTERNAL_MONITOR="DP-11"                   # Your external display name
-EXTERNAL_RESOLUTION="preferred"        # External monitor resolution@refresh
-EXTERNAL_SCALE="auto"                     # External monitor scaling factor
+LAPTOP_MONITOR="eDP-2"                    # Your laptop display name
+EXTERNAL_MONITOR="DP-2"                   # Your external display name
 LAPTOP_SCALE="auto"                           # Laptop monitor scaling factor
-EXTERNAL_POSITION="auto"                   # External monitor position
 LAPTOP_POSITION_DUAL="auto-left"            # Laptop position in dual mode
 LAPTOP_POSITION_SOLO="auto"               # Laptop position when alone
 # Workspace distribution
@@ -218,7 +215,7 @@ move_ws_to_monitor() {
 
 set_external_only() {
   # Enable external and disable laptop using configured values
-  hypr keyword monitor "${EXTERNAL_MONITOR},${EXTERNAL_RESOLUTION},${EXTERNAL_POSITION},${EXTERNAL_SCALE}"
+  hypr keyword monitor ",preferred,auto,auto"
   sleep 0.25
   hypr keyword monitor "${LAPTOP_MONITOR},disable"
   sleep 0.25
@@ -226,7 +223,7 @@ set_external_only() {
 
 set_dual_layout() {
   # External and laptop both enabled, positions/scales from config
-  hypr keyword monitor "${EXTERNAL_MONITOR},${EXTERNAL_RESOLUTION},${EXTERNAL_POSITION},${EXTERNAL_SCALE}"
+  hypr keyword monitor ",preferred,auto-left,auto"
   sleep 0.25
 
   # Set laptop monitor with appropriate refresh rate based on power state
@@ -239,7 +236,7 @@ set_dual_layout() {
     log "Battery power detected, using low refresh rate for laptop in dual layout"
   fi
 
-  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_BASE_RESOLUTION}@${laptop_refresh},${LAPTOP_POSITION_DUAL},${LAPTOP_SCALE}"
+  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_BASE_RESOLUTION}@${laptop_refresh},auto-left,auto"
   sleep 0.25
 }
 
@@ -257,7 +254,7 @@ set_laptop_only() {
     log "Battery power detected, using low refresh rate for laptop-only mode"
   fi
 
-  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_BASE_RESOLUTION}@${laptop_refresh},${LAPTOP_POSITION_SOLO},${LAPTOP_SCALE}"
+  hypr keyword monitor "${LAPTOP_MONITOR},${LAPTOP_BASE_RESOLUTION}@${laptop_refresh},auto-left,auto"
   sleep 0.25
 }
 
@@ -343,7 +340,7 @@ switch_laptop_refresh() {
   fi
 
   log "Switching laptop monitor to ${refresh}Hz"
-  hypr keyword monitor "${LAPTOP_MONITOR},${resolution}@${refresh},${position},${scale}" >/dev/null 2>&1
+  hypr keyword monitor "${LAPTOP_MONITOR},${resolution}@${refresh},auto-left,auto" >/dev/null 2>&1
   notify "Display" "Switched to ${refresh}Hz" -u low
   log "✅ Laptop monitor switched to ${refresh}Hz"
 }

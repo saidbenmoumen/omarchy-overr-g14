@@ -1,6 +1,9 @@
 # Ignore everything
 *
 
+!dp_utils/
+!dp_utils/**
+
 # But not these directories
 !nvim/
 !nvim/**
