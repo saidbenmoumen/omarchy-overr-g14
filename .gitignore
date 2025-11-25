@@ -30,6 +30,9 @@
 !omarchy/themes/black
 !omarchy/branding
 
+!waybar/
+!waybar/**
+
 
 !mpv/
 !mpv/**
