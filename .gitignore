@@ -1,8 +1,8 @@
 # Ignore everything
 *
 
-!dp_utils/
-!dp_utils/**
+!hyprdynamicmonitors/
+!hyprdynamicmonitors/**
 
 # But not these directories
 !nvim/
@@ -13,9 +13,6 @@
 
 !scripts/
 !scripts/**
-
-!monitor-auto-switch/
-!monitor-auto-switch/**
 
 !alacritty/
 !alacritty/**
