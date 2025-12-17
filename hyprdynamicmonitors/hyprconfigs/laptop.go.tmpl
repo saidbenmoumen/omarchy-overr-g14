@@ -1,1 +1,2 @@
-monitor=eDP-2,{{.default_res}}@{{if isOnAC}}{{.refresh_rate_high}}{{else}}{{.refresh_rate_low}}{{end}},0x0,2.0,vrr,{{.default_vrr}}
+{{- $laptop := index .MonitorsByTag "laptop" -}}
+monitor=${{laptop.Name}},{{.default_res}}@{{if isOnAC}}{{.refresh_rate_high}}{{else}}{{.refresh_rate_low}}{{end}},0x0,{{.default_scale}},vrr,{{.default_vrr}}

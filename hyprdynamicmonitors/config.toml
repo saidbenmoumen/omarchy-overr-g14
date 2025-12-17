@@ -10,18 +10,38 @@ object_path = "/org/freedesktop/UPower/devices/line_power_ACAD"
 
 [static_template_values]
 default_vrr = "1"
+default_scale = "2.0"
 default_res = "2880x1800"
 refresh_rate_high = "120.00000"
 refresh_rate_low = "60.00000"
 
-[profiles.laptop_only]
+# Laptop Only - AC(120hz) / Battery(60hz)
+[profiles.laptop]
 config_file = "hyprconfigs/laptop.go.tmpl"
 config_file_type = "template"
 
-[[profiles.laptop_only.conditions.required_monitors]]
+[[profiles.laptop.conditions.required_monitors]]
 name = "eDP-2"
 monitor_tag = "laptop"
 
+# Docked AC
+[profiles.docked_ac]
+config_file = "hyprconfigs/docked_ac.go.tmpl"
+config_file_type = "template"
+
+[profiles.docked_ac.conditions]
+power_state = "AC"
+
+[[profiles.docked_ac.conditions.required_monitors]]
+name = "eDP-2"
+monitor_tag = "laptop"
+
+[[profiles.docked_ac.conditions.required_monitors]]
+description = "LG HDR 5K 202NTQDFP636"
+match_description_using_regex = true
+monitor_tag = "external"
+
+# Fallback
 [fallback_profile]
 config_file = "hyprconfigs/fallback.conf"
 config_file_type = "static"
