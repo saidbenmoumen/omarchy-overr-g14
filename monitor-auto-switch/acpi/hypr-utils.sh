@@ -10,7 +10,7 @@ log() {
 
 # ========== CONFIGURATION SECTION ==========
 # Customize these values based on your hardware
-LAPTOP_MONITOR="eDP-2"                    # Your laptop display name
+LAPTOP_MONITOR="eDP-1"                    # Your laptop display name
 EXTERNAL_MONITOR="DP-2"                   # Your external display name
 LAPTOP_SCALE="auto"                           # Laptop monitor scaling factor
 LAPTOP_POSITION_DUAL="auto-left"            # Laptop position in dual mode
