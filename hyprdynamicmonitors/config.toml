@@ -29,8 +29,8 @@ monitor_tag = "laptop"
 config_file = "hyprconfigs/docked_ac.go.tmpl"
 config_file_type = "template"
 
-[profiles.docked_ac.conditions]
-power_state = "AC"
+# [profiles.docked_ac.conditions]
+# power_state = "AC"
 
 [[profiles.docked_ac.conditions.required_monitors]]
 name = "eDP-2"
