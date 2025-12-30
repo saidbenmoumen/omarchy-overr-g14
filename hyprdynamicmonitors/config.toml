@@ -21,7 +21,7 @@ config_file = "hyprconfigs/laptop.go.tmpl"
 config_file_type = "template"
 
 [[profiles.laptop.conditions.required_monitors]]
-name = "eDP-2"
+name = "eDP-1"
 monitor_tag = "laptop"
 
 # Docked AC
@@ -33,11 +33,25 @@ config_file_type = "template"
 # power_state = "AC"
 
 [[profiles.docked_ac.conditions.required_monitors]]
-name = "eDP-2"
+name = "eDP-1"
 monitor_tag = "laptop"
 
 [[profiles.docked_ac.conditions.required_monitors]]
 description = "LG HDR 5K 202NTQDFP636"
+match_description_using_regex = true
+monitor_tag = "external"
+
+# Gaming
+[profiles.gaming]
+config_file = "hyprconfigs/gaming.go.tmpl"
+config_file_type = "template"
+
+[[profiles.gaming.conditions.required_monitors]]
+name = "eDP-1"
+monitor_tag = "laptop"
+
+[[profiles.gaming.conditions.required_monitors]]
+description = "XG27AQ"
 match_description_using_regex = true
 monitor_tag = "external"
 

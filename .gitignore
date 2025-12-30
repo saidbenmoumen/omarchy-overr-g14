@@ -17,6 +17,10 @@
 !alacritty/
 !alacritty/**
 
+!ghostty/
+!ghostty/**
+
+
 !uwsm/
 !uwsm/**
 
