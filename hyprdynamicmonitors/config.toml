@@ -21,7 +21,8 @@ config_file = "hyprconfigs/laptop.go.tmpl"
 config_file_type = "template"
 
 [[profiles.laptop.conditions.required_monitors]]
-name = "eDP-1"
+description = "ATNA40CU05-0"
+match_description_using_regex = true
 monitor_tag = "laptop"
 
 # Docked AC
@@ -29,11 +30,12 @@ monitor_tag = "laptop"
 config_file = "hyprconfigs/docked_ac.go.tmpl"
 config_file_type = "template"
 
-# [profiles.docked_ac.conditions]
-# power_state = "AC"
+[profiles.docked_ac.conditions]
+power_state = "AC"
 
 [[profiles.docked_ac.conditions.required_monitors]]
-name = "eDP-1"
+description = "ATNA40CU05-0"
+match_description_using_regex = true
 monitor_tag = "laptop"
 
 [[profiles.docked_ac.conditions.required_monitors]]
@@ -47,7 +49,8 @@ config_file = "hyprconfigs/gaming.go.tmpl"
 config_file_type = "template"
 
 [[profiles.gaming.conditions.required_monitors]]
-name = "eDP-1"
+description = "ATNA40CU05-0"
+match_description_using_regex = true
 monitor_tag = "laptop"
 
 [[profiles.gaming.conditions.required_monitors]]
