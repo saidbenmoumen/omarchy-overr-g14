@@ -14,6 +14,7 @@ return {
         ["typescriptreact"] = { "biome-check" },
         ["json"] = { "biome-check" },
         ["css"] = { "biome-check" },
+        nginx = { "nginxfmt" },
       }
 
       return opts
