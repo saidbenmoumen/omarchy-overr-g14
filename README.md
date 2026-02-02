@@ -1,8 +1,8 @@
-a modified omarchy .conf to match my preferences :)
+a modified omarchy .conf to match my preferences.
 
-# DGPU (NVIDIA)
+## Hybrid DGPU (NVIDIA)
 
-#### Laptop / Hybrid GPU Power Management Issues NVIDIA, iGPU + dGPU
+### Laptop / Hybrid GPU Power Management Issues NVIDIA, iGPU + dGPU
 
 <https://github.com/basecamp/omarchy/issues/1776>
 
@@ -21,7 +21,7 @@ sudo limine-update
 
 NOTE: if integrated make sure /etc/supergfxctl.conf has mode "Hybrid"
 
-#### Walker using DGPU
+### Walker using DGPU
 
 there is only nvidia icd in `/usr/share/vulkan/icd.d/` ?
 
@@ -31,7 +31,7 @@ sudo pacman -S vulkan-radeon lib32-vulkan-radeon
 
 VK_ICD_FILENAMES env which exists should work now
 
-#### Xorg DGPU keeps it up (SDDM)
+### Xorg DGPU keeps it up (SDDM)
 
 etc/sddm.conf.d/wayland.conf
 
@@ -47,14 +47,6 @@ Session=hyprland-uwsm
 Current=breeze
 ```
 
-# TODO
-
-- look into power_dp if power battery passthrough is good in usb-c or power_brick, ...
-- look into vrr if scales down to 1hz or smtg? better battery?
-- battery: enable/disable panel overdrive asusctl? `asusctl armoury panel_overdrive 0|1` ???
-- if plugged make auto suspend (hyprlock?) disabled or make it very long not quick
-- auto refresh rate its own script in acpi external from acpi monitor switch
-- dp_dual: shortcut (show all monitors) [dp_reset] + [,preferred,auto,auto]
-- dp_external: shortcut [dp_reset] + [hyprctl keyword eDP*,disable]
-- dp_laptop: shortcut [dp_reset] + hyprctl keywoard DP\*,disable
-- dp_reset: shortcut [dp_reset]
+## Integrated GPU (AMD)
+### Supergfxctl: Integrated Mode + Suspend = gpu turns on
+https://www.reddit.com/r/archlinux/comments/1gim7sq/who_is_waking_my_nvidia_up_supergfxctl_systemsleep/
