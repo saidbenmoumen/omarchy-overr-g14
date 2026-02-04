@@ -42,6 +42,7 @@
 !systemd/**
 
 !README.md
+!Asus.md
 
 # Don't ignore .gitignore itself
 !.gitignore
