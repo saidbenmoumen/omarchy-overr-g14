@@ -18,7 +18,7 @@
     "bluetooth",
     "network",
     "pulseaudio",
-    "cpu",
+    "group/hardware",
     "battery"
   ],
   "hyprland/workspaces": {
@@ -62,8 +62,20 @@
   },
   "cpu": {
     "interval": 5,
-    "format": "󰍛",
+    "format": " {usage}%",
     "on-click": "omarchy-launch-or-focus-tui btop"
+  },
+  "memory": {
+    "interval": 5,
+    "format": " {}%",
+    "on-click": "omarchy-launch-or-focus-tui btop"
+  },
+  "group/hardware": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "memory"
+    ]
   },
   "clock": {
     "format": "{:L%A %H:%M}",
