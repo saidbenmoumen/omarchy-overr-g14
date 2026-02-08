@@ -14,11 +14,12 @@
     "custom/screenrecording-indicator"
   ],
   "modules-right": [
+    "custom/music",
+    "group/hardware",
     "tray",
     "bluetooth",
     "network",
     "pulseaudio",
-    "group/hardware",
     "battery"
   ],
   "hyprland/workspaces": {
@@ -67,7 +68,7 @@
   },
   "memory": {
     "interval": 5,
-    "format": " {}%",
+    "format": " {}%",
     "on-click": "omarchy-launch-or-focus-tui btop"
   },
   "group/hardware": {
@@ -194,5 +195,11 @@
   "tray": {
     "icon-size": 12,
     "spacing": 17
+  },
+  "custom/music": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "waybar-module-music -f \"[%icon%] %artist%\" -w \"spotify\"",
+    "on-click": "playerctl play-pause"
   }
 }

@@ -31,8 +31,12 @@
 }
 
 #cpu,
+#memory,
 #battery,
 #pulseaudio,
+#custom-music,
+#network,
+#bluetooth,
 #custom-omarchy,
 #custom-screenrecording-indicator,
 #custom-update {
@@ -41,15 +45,7 @@
 }
 
 #tray {
-  margin-right: 16px;
-}
-
-#bluetooth {
-  margin-right: 17px;
-}
-
-#network {
-  margin-right: 13px;
+  margin: 0 7.5px;
 }
 
 #custom-expand-icon {
