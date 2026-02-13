@@ -46,3 +46,6 @@
 
 # Don't ignore .gitignore itself
 !.gitignore
+
+!opencode/
+!opencode/opencode.json

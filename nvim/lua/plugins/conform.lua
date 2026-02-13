@@ -15,6 +15,7 @@ return {
         ["json"] = { "biome-check" },
         ["css"] = { "biome-check" },
         nginx = { "nginxfmt" },
+        -- sh = { "shfmt" },
       }
 
       return opts
