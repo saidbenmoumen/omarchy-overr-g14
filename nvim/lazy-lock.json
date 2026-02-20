@@ -1,7 +1,6 @@
 {
   "LazyVim": { "branch": "main", "commit": "d72127eb936f7f05d88d4fc316bc7e89080d69d8" },
   "SchemaStore.nvim": { "branch": "main", "commit": "3b0d7d781589ce98ce577202d25d07741ffcf479" },
-  "aether": { "branch": "main", "commit": "e4c485f6fea6170fe2da17e87ca98cd25d215cd5" },
   "bamboo.nvim": { "branch": "master", "commit": "6ec224a4fcf0970fce262fc5bb51048721d464f6" },
   "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
   "blink.compat": { "branch": "main", "commit": "2ed6d9a28b07fa6f3bface818470605f8896408c" },
@@ -47,5 +46,6 @@
   "trouble.nvim": { "branch": "main", "commit": "76030c5542c5d132aeeb467ca0ab370f3f79a697" },
   "ts-comments.nvim": { "branch": "main", "commit": "217ab9cc137fceb6659b53790bd25e608219abe1" },
   "typescript-tools.nvim": { "branch": "master", "commit": "db26c05e267239581c89f5c825fdb8c3cf6da0c5" },
+  "vantablack.nvim": { "branch": "main", "commit": "8a05ea96343914f1001e937b4fa7d9d44b51d221" },
   "which-key.nvim": { "branch": "main", "commit": "b4177e3eaf15fe5eb8357ebac2286d488be1ed00" }
 }
