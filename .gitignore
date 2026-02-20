@@ -49,3 +49,8 @@
 
 !opencode/
 !opencode/opencode.json
+
+!omarchy/
+!omarchy/current
+!omarchy/current/theme
+!omarchy/current/theme/walker.css
