@@ -20,7 +20,6 @@
 !ghostty/
 !ghostty/**
 
-
 !uwsm/
 !uwsm/**
 
@@ -29,11 +28,9 @@
 
 !omarchy/
 !omarchy/themes/black
-!omarchy/branding
 
 !waybar/
 !waybar/**
-
 
 !mpv/
 !mpv/**
@@ -42,18 +39,12 @@
 !systemd/**
 
 !README.md
-!Asus.md
 
 # Don't ignore .gitignore itself
 !.gitignore
 
 !opencode/
 !opencode/opencode.json
-
-!omarchy/
-!omarchy/current
-!omarchy/current/theme
-!omarchy/current/theme/walker.css
 
 !steam-gaming-mode/
 !steam-gaming-mode/*
