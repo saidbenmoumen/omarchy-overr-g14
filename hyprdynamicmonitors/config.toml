@@ -15,16 +15,6 @@ default_res = "2880x1800"
 refresh_rate_high = "120.00000"
 refresh_rate_low = "60.00000"
 
-# Laptop Only - AC(120hz) / Battery(60hz)
-[profiles.laptop]
-config_file = "hyprconfigs/laptop.go.tmpl"
-config_file_type = "template"
-
-[[profiles.laptop.conditions.required_monitors]]
-description = "ATNA40CU05-0"
-match_description_using_regex = true
-monitor_tag = "laptop"
-
 # Docked AC
 [profiles.docked_ac]
 config_file = "hyprconfigs/docked_ac.go.tmpl"
@@ -40,21 +30,6 @@ monitor_tag = "laptop"
 
 [[profiles.docked_ac.conditions.required_monitors]]
 description = "LG HDR 5K 202NTQDFP636"
-match_description_using_regex = true
-monitor_tag = "external"
-
-# Gaming
-[profiles.gaming]
-config_file = "hyprconfigs/gaming.go.tmpl"
-config_file_type = "template"
-
-[[profiles.gaming.conditions.required_monitors]]
-description = "ATNA40CU05-0"
-match_description_using_regex = true
-monitor_tag = "laptop"
-
-[[profiles.gaming.conditions.required_monitors]]
-description = "XG27AQ"
 match_description_using_regex = true
 monitor_tag = "external"
 
