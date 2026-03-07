@@ -4,7 +4,7 @@
 {{if isLidClosed}}
 monitor={{$laptop.Name}},disable
 {{else}}
-monitor={{$laptop.Name}},{{.default_res}}@{{.refresh_rate_high}},auto-left,{{.default_scale}},vrr,{{.default_vrr}}
+monitor={{$laptop.Name}},{{.default_res}}@{{.refresh_rate_high}},auto,{{.default_scale}},vrr,{{.default_vrr}}
 {{end}}
 
 monitor={{$external.Name}},5120x2160@59.99900,0x0,1.60,vrr,0
