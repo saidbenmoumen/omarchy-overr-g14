@@ -33,6 +33,24 @@ description = "LG HDR 5K 202NTQDFP636"
 match_description_using_regex = true
 monitor_tag = "external"
 
+# Gaming
+[profiles.gaming]
+config_file = "hyprconfigs/gaming.go.tmpl"
+config_file_type = "template"
+
+[profiles.gaming.conditions]
+power_state = "AC"
+
+[[profiles.gaming.conditions.required_monitors]]
+description = "ATNA40CU05-0"
+match_description_using_regex = true
+monitor_tag = "laptop"
+
+[[profiles.gaming.conditions.required_monitors]]
+description = "XG27AQ"
+match_description_using_regex = true
+monitor_tag = "external"
+
 # Fallback
 [fallback_profile]
 config_file = "hyprconfigs/fallback.conf"
