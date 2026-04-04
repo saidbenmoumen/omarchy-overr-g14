@@ -1,5 +1,3 @@
-# export AQ_DRM_DEVICES="/dev/dri/amd-igpu:/dev/dri/nvidia-dgpu"
-export AQ_DRM_DEVICES="/dev/dri/amd-igpu"
-
-# to force walker to use igpu
-export VK_ICD_FILENAMES,/usr/share/vulkan/icd.d/radeon_icd.json:/usr/share/vulkan/icd.d/nvidia_icd.json 
+# NEEDED TO SWITCH TO IGPU: aquamarine does not release dgpu after external monitor
+export AQ_DRM_DEVICES="/dev/dri/amd-igpu:/dev/dri/nvidia-dgpu"
+# export AQ_DRM_DEVICES="/dev/dri/amd-igpu"
