@@ -248,8 +248,12 @@ export DXVK_NVAPI_DRS_NGX_DLSS_FG_OVERRIDE=on
 export NVPRESENT_ENABLE_SMOOTH_MOTION=1
 export NVPRESENT_QUEUE_FAMILY=1
 
-# NTSync fallback: uncomment if a specific game breaks with NTSync
-# export PROTON_USE_NTSYNC=0
+# NTSync Enabled 
+export PROTON_USE_NTSYNC=1
+
+
+# Debug: Uncomment to show on-screen DLSS/DLSS-G indicators for verification
+# export DXVK_NVAPI_SET_NGX_DEBUG_OPTIONS="DLSSIndicator=1024,DLSSGIndicator=2"
 
 # Launch gamescope as nested session with current display settings
 # gamemoderun sets CPU governor to performance, adjusts I/O priority, and GPU clocks
