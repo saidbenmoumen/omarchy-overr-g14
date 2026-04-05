@@ -46,7 +46,8 @@
 !opencode/
 !opencode/opencode.json
 
-!omarchy-steam-gaming-mode/
+!steam-gaming-mode/
+!steam-gaming-mode/**
 
 !walker
 !walker/*
