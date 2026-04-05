@@ -229,6 +229,15 @@ export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
 # Enable automatic DLSS upgrades in Proton games
 export PROTON_DLSS_UPGRADE=1
 
+# Prevent gamescope from triggering Steam Deck mode
+export SteamDeck=0
+
+# Force DLSS SR override with best quality model (render_preset_m)
+export DXVK_NVAPI_DRS_SETTINGS="NGX_DLSS_SR_OVERRIDE=on,NGX_DLSS_SR_OVERRIDE_RENDER_PRESET_SELECTION=render_preset_m"
+
+# DLSS debug indicators (remove once verified working)
+export DXVK_NVAPI_SET_NGX_DEBUG_OPTIONS="DLSSIndicator=1024,DLSSGIndicator=2"
+
 # Launch gamescope as nested session with current display settings
 # gamemoderun sets CPU governor to performance, adjusts I/O priority, and GPU clocks
 gamemoderun /usr/bin/gamescope --mangoapp -f -W "$WIDTH" -H "$HEIGHT" -r "$REFRESH" -e --backend sdl -- /usr/bin/steam -tenfoot
