@@ -67,6 +67,20 @@ install_dependencies() {
     log_info "Gamescope already installed"
   fi
 
+  # Install jq for JSON parsing
+  if ! command -v jq &>/dev/null; then
+    log_info "Installing jq..."
+    sudo pacman -S --needed --noconfirm jq
+    log_success "jq installed"
+  else
+    log_info "jq already installed"
+  fi
+
+  # Install mangohud (including 32-bit for 32-bit games)
+  log_info "Installing mangohud and lib32-mangohud..."
+  sudo pacman -S --needed --noconfirm mangohud lib32-mangohud
+  log_success "Mangohud installed"
+
   # Check if Steam is installed
   if ! command -v steam &>/dev/null; then
     log_warning "Steam is not installed!"
@@ -82,15 +96,6 @@ install_dependencies() {
   else
     log_success "Steam is already installed"
     return 0
-  fi
-
-  # Install mangohud
-  if ! command -v mangohud &>/dev/null; then
-    log_info "Installing mangohud..."
-    sudo pacman -S --needed --noconfirm mangohud
-    log_success "Mangohud installed"
-  else
-    log_info "Mangohud already installed"
   fi
 }
 
@@ -176,47 +181,15 @@ get_display_info() {
     return
   fi
   
-  # Parse JSON to get the focused/primary monitor info
-  # Get width, height, and refresh rate from the first active monitor
-  local width height refresh
-  width=$(echo "$monitors_info" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    if data and len(data) > 0:
-        print(int(data[0]['width']))
-    else:
-        print(1920)
-except:
-    print(1920)
-" 2>/dev/null || echo "1920")
+  # Parse JSON with jq to get width, height, and refresh rate from the first active monitor
+  local parsed
+  parsed=$(echo "$monitors_info" | jq -r '.[0] | "\(.width) \(.height) \(.refreshRate | round)"' 2>/dev/null)
   
-  height=$(echo "$monitors_info" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    if data and len(data) > 0:
-        print(int(data[0]['height']))
-    else:
-        print(1080)
-except:
-    print(1080)
-" 2>/dev/null || echo "1080")
-  
-  refresh=$(echo "$monitors_info" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    if data and len(data) > 0:
-        # Round refresh rate to nearest integer
-        print(int(round(data[0]['refreshRate'])))
-    else:
-        print(60)
-except:
-    print(60)
-" 2>/dev/null || echo "60")
-  
-  echo "$width $height $refresh"
+  if [ -z "$parsed" ]; then
+    echo "1920 1080 60"
+  else
+    echo "$parsed"
+  fi
 }
 
 # Kill existing Steam instances first
@@ -244,8 +217,21 @@ else
   notify-send "Screensaver disabled"
 fi
 
+# Force dGPU (NVIDIA) for all rendering via PRIME offload
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __VK_LAYER_NV_optimus=NVIDIA_only
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
+
+# NVIDIA shader cache: prevent cleanup to reduce stutter
+export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+
+# Enable automatic DLSS upgrades in Proton games
+export PROTON_DLSS_UPGRADE=1
+
 # Launch gamescope as nested session with current display settings
-/usr/bin/gamescope --mangoapp -f -W "$WIDTH" -H "$HEIGHT" -r "$REFRESH" -e --backend sdl -- /usr/bin/steam -tenfoot
+# gamemoderun sets CPU governor to performance, adjusts I/O priority, and GPU clocks
+gamemoderun /usr/bin/gamescope --mangoapp -f -W "$WIDTH" -H "$HEIGHT" -r "$REFRESH" -e --backend sdl -- /usr/bin/steam -tenfoot
 EOF
 
   sudo chmod +x /usr/local/bin/switch-to-gaming
