@@ -223,11 +223,15 @@ export __VK_LAYER_NV_optimus=NVIDIA_only
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
-# NVIDIA shader cache: prevent cleanup to reduce stutter
+# NVIDIA shader cache: prevent cleanup and increase max size to 12GB
 export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+export __GL_SHADER_DISK_CACHE_SIZE=12000000000
 
 # Enable automatic DLSS upgrades in Proton games
 export PROTON_DLSS_UPGRADE=1
+
+# Skip 32-bit NVIDIA libs (RTX 4000+ performance fix)
+export PROTON_NVIDIA_LIBS_NO_32BIT=1
 
 # Prevent gamescope from triggering Steam Deck mode
 export SteamDeck=0
@@ -235,8 +239,12 @@ export SteamDeck=0
 # Force DLSS SR override with best quality model (render_preset_m)
 export DXVK_NVAPI_DRS_SETTINGS="NGX_DLSS_SR_OVERRIDE=on,NGX_DLSS_SR_OVERRIDE_RENDER_PRESET_SELECTION=render_preset_m"
 
-# DLSS debug indicators (remove once verified working)
-export DXVK_NVAPI_SET_NGX_DEBUG_OPTIONS="DLSSIndicator=1024,DLSSGIndicator=2"
+# NVIDIA Smooth Motion: driver-based AI frame interpolation (RTX 50xx)
+export NVPRESENT_ENABLE_SMOOTH_MOTION=1
+export NVPRESENT_QUEUE_FAMILY=1
+
+# NTSync fallback: uncomment if a specific game breaks with NTSync
+# export PROTON_USE_NTSYNC=0
 
 # Launch gamescope as nested session with current display settings
 # gamemoderun sets CPU governor to performance, adjusts I/O priority, and GPU clocks
