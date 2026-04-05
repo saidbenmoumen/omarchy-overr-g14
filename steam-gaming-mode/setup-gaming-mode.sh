@@ -227,8 +227,9 @@ export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
 export __GL_SHADER_DISK_CACHE_SIZE=12000000000
 
-# Enable automatic DLSS upgrades in Proton games
+# Enable automatic DLSS upgrades and NGX model updates in Proton games
 export PROTON_DLSS_UPGRADE=1
+export PROTON_ENABLE_NGX_UPDATER=1
 
 # Skip 32-bit NVIDIA libs (RTX 4000+ performance fix)
 export PROTON_NVIDIA_LIBS_NO_32BIT=1
@@ -236,8 +237,12 @@ export PROTON_NVIDIA_LIBS_NO_32BIT=1
 # Prevent gamescope from triggering Steam Deck mode
 export SteamDeck=0
 
-# Force DLSS SR override with best quality model (render_preset_m)
-export DXVK_NVAPI_DRS_SETTINGS="NGX_DLSS_SR_OVERRIDE=on,NGX_DLSS_SR_OVERRIDE_RENDER_PRESET_SELECTION=render_preset_m"
+# DLSS overrides: SR, Ray Reconstruction, and Frame Generation with latest models
+export DXVK_NVAPI_DRS_NGX_DLSS_SR_OVERRIDE=on
+export DXVK_NVAPI_DRS_NGX_DLSS_SR_OVERRIDE_RENDER_PRESET_SELECTION=render_preset_latest
+export DXVK_NVAPI_DRS_NGX_DLSS_RR_OVERRIDE=on
+export DXVK_NVAPI_DRS_NGX_DLSS_RR_OVERRIDE_RENDER_PRESET_SELECTION=render_preset_latest
+export DXVK_NVAPI_DRS_NGX_DLSS_FG_OVERRIDE=on
 
 # NVIDIA Smooth Motion: driver-based AI frame interpolation (RTX 50xx)
 export NVPRESENT_ENABLE_SMOOTH_MOTION=1
