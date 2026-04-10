@@ -1,12 +1,15 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-with-claude"
+  ],
   "autoupdate": false,
   "provider": {
     "anthropic": {
       "options": {
         "baseURL": "http://127.0.0.1:3456",
-        "apiKey": "x"
+        "apiKey": "dummy"
       }
     }
-  }
+  },
 }
