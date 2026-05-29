@@ -33,6 +33,7 @@ require("lazy").setup({
     -- https://www.lazyvim.org/extras/lang/php ??
     -- util
     { import = "lazyvim.plugins.extras.util.dot" },
+    { import = "lazyvim.plugins.extras.util.rest" },
     -- ai
     { import = "lazyvim.plugins.extras.ai.supermaven" },
     -- linting
