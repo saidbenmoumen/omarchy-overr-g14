@@ -20,8 +20,8 @@ refresh_rate_low = "60.00000"
 config_file = "hyprconfigs/docked_ac.go.tmpl"
 config_file_type = "template"
 
-[profiles.docked_ac.conditions]
-power_state = "AC"
+# [profiles.docked_ac.conditions]
+# power_state = "AC"
 
 [[profiles.docked_ac.conditions.required_monitors]]
 description = "ATNA40CU05-0"
