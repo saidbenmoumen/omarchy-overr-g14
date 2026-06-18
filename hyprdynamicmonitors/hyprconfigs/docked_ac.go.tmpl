@@ -1,5 +1,10 @@
 {{- $laptop := index .MonitorsByTag "laptop" -}}
 {{- $external := index .MonitorsByTag "external" -}}
 
+{{if isLidClosed}}
 monitor={{$laptop.Name}},disable
-monitor={{$external.Name}},5120x2160@60,auto,auto
+{{else}}
+monitor={{$laptop.Name}},{{.default_res}}@{{.refresh_rate_high}},auto,{{.default_scale}},vrr,{{.default_vrr}}
+{{end}}
+
+monitor={{$external.Name}},5120x2160@59.99900,0x0,1.60,vrr,0
