@@ -45,7 +45,7 @@ hypr/monitors.conf
 !.gitignore
 
 !opencode/
-!opencode/opencode.json
+!opencode/**
 
 !steam-gaming-mode/
 !steam-gaming-mode/**
