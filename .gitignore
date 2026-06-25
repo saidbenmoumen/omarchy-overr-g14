@@ -10,6 +10,7 @@
 
 !hypr/
 !hypr/**
+hypr/monitors.conf
 
 !scripts/
 !scripts/**
