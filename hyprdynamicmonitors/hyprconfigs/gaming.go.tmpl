@@ -2,7 +2,7 @@
 {{- $laptop := index .MonitorsByTag "laptop" -}}
 {{- $external := index .MonitorsByTag "external" -}}
 
-monitor={{$laptop.Name}},disable
+# monitor={{$laptop.Name}},disable
 # monitor={{$external.Name}},2560x1440@144.01, auto, 1, bitdepth, 10, vrr, 2, cm, auto
 # monitor={{$external.Name}},2560x1440@59.95, auto, 1, vrr, 2, cm, auto
 monitor={{$external.Name}},2560x1440@144.01, auto, 1, vrr, 2, cm, auto
